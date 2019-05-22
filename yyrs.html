@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>音乐日食</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+
+        }
+        .demo{
+            position:absolute;
+            height:100%;
+            width:100%;
+         
+
+        }
+        .block1{
+            position:absolute;
+           top:300px;
+           left:40%;
+           width:200px;
+           height:200px;
+           border-radius:50%;
+           background-color:palevioletred;
+       }
+        .block2{
+            position:absolute;
+            top:300px;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: springgreen;
+        }
+       audio{
+           position:absolute;
+          top:600px;
+           left:30%;  
+       }
+       .volume{
+           position:absolute;
+           top:500px;
+           left:48%;
+           font-size:30px;
+       }
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <audio  ><source  src="./yy.mp3"/></audio>
+        <div class="block1"></div>
+        <div class="block2"></div>
+        <div class="volume">100%</div>
+    </div>
+    <script src="./jquery-3.3.1.js"></script>
+    <script>
+        
+        var music = document.getElementsByTagName('audio')[0];
+        var volume = music.volume;
+        $('.volume')[0].innerHTML = '0%';
+        var volumesize = 0;
+        var r = 182;
+        var g = 255;
+        var odemo = document.getElementsByClassName('demo')[0];
+        var moveblock = document.getElementsByClassName('block2')[0];
+        $('.demo').css('backgroundColor', 'rgb( 182,255,2 )')
+        var tuozhuai = {
+            down: function (dom) {
+                this.ele = dom;
+                this.down1();
+            },
+            down1: function () {
+
+                this.ele.onmousedown = this.move.bind(this);
+                
+            },
+            move: function (e) {
+               
+                document.body.onmousemove = this.move1.bind(this);
+                this.ele.onmouseup = this.up1.bind(this);
+                this.disX = e.clientX - this.ele.offsetLeft;
+                this.lastleft = ($('.block2')[0].offsetLeft + 100) - ($('.block1')[0].offsetLeft + 100);
+            },
+            move1: function (e) {
+                var newleft = e.clientX - this.disX;
+                this.ele.style.left = newleft + 'px';   
+                volumesize = (1 - ((newleft - ($('.block1')[0].offsetLeft)) / this.lastleft)) * 100;
+                if (volumesize < 0.5 || volumesize>190) {
+                    $('.volume')[0].innerHTML = 0 + '%'
+                }
+                if (volumesize < 100) {
+                    music.play();
+                    if (volumesize / 100 > 0) {
+                        $('.volume')[0].innerHTML = volumesize + '%'
+                        music.volume = volumesize / 100;
+                    }
+                }
+                else {
+                    
+                    
+                    if (((200 - volumesize) / 100) > 0) {
+                        $('.volume')[0].innerHTML = 200 - volumesize + '%';
+                        music.volume = (200 - volumesize) / 100;
+                    }
+                }
+                if ((newleft > $('.block1')[0].offsetLeft) & (newleft < ($('.block1')[0].offsetLeft + 200))) {
+                    var x = ((newleft - $('.block1')[0].offsetLeft) / 200);
+                    r = Math.floor(182 * x);
+                    g = Math.floor(255 * x);
+                    $('.demo').css('backgroundColor', 'rgb(' + r + ',' + g + ',2 )')
+                }
+                console.log(newleft + '-' + $('.block1')[0].offsetLeft)
+                if ((newleft < $('.block1')[0].offsetLeft) & (newleft > ($('.block1')[0].offsetLeft - 200)) )
+                {
+                          
+                        var x = (($('.block1')[0].offsetLeft - newleft) / 200);
+                        r = Math.floor(182 * x);
+                        g = Math.floor(255 * x);
+                        $('.demo').css('backgroundColor', 'rgb(' + r + ',' + g + ',2 )')
+                    }
+                   
+                
+                   
+                
+                
+
+            },
+            up1: function () {
+                document.body.onmousemove = null;
+                this.ele.onmouseup = null;
+
+            }
+        }
+        tuozhuai.down(moveblock)
+      
+        
+        
+        
+
+
+    </script>
+</body>
+</html>
