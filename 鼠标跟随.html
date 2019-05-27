@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>鼠标跟随</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        .demo{
+            background-color:black;
+        }
+    </style>
+</head>
+<body>
+   <canvas class="demo"></canvas>
+    <script>
+        var canvas = document.getElementsByClassName('demo')[0];
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var ctx = canvas.getContext('2d');
+        var arr = [];
+        var a = undefined;
+       
+        canvas.addEventListener('mousemove', function (e) {
+            arr.push(new circle(e.clientX, e.clientY  ));
+        })
+        function circle(x, y) {
+            this.x = x;
+            this.y = y;
+            this.a = 1;
+            this.dx = (Math.random() - 0.5) * 3;
+            this.dy = (Math.random() - 0.5) * 3;
+            this.color = 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ','
+                + Math.floor(Math.random() * 255) + ',' + this.a + ')';
+            this.draw();  
+        
+        }
+        circle.prototype = {
+            draw: function () {
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.globalCompositeOperation = 'lighter';
+                ctx.globalAlpha = this.a;
+                ctx.arc(this.x,this.y, 30, 0, Math.PI * 2, 1);
+                ctx.fill();
+                ctx.closePath();
+                this.move();
+            },
+            move: function () {
+                this.x += this.dx;
+                this.y += this.dy;
+                this.a = this.a * 0.98;
+              5
+            }
+        }
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            arr.forEach(function (ele, i) {
+                ele.draw();
+                if (ele.a < 0.05) {
+                    arr.splice(i, 1);
+                }
+            });
+          
+            setTimeout(render,16.7)
+        }
+        render();
+        
+        
+        
+
+
+
+    </script>
+
+</body>
+</html>

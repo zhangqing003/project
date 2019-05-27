@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ppt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href= "./ppt.css">
+    </head>
+    <body>
+        
+        <script src ="./jquery-3.3.1.js"></script>
+    <div class = 'wraper'>
+        <div  class="silderlist">   
+            <div class="silder">
+                <div class="box">
+            <div class="content">
+                <h3>标题一</h3>
+                <p>那种下你是啊我人个和就发的是了发和就看发阿三啊啊我我他</p>
+            </div>
+            <img src="./img1/timg3.jpg" alt="">
+            </div></div>
+            <div  class="silder">
+                <div class="box">          
+                    <div class="content">
+                        <h3>标题二</h3>
+                        <p>那种下你是啊我人个和就发的是了发和就看发阿三</p>
+                    </div>
+                    <img src= './img1/timg4.jpg'alt="">
+                    </div></div>
+                    <div  class="silder">
+                        <div class="box">         
+                            <div class="content">
+                                <h3>标题三</h3>
+                                <p>那种下你是啊我人个和就发的是了发和就看发阿三啊啊我</p>
+                            </div>
+                            <img src='./img1/timg5.jpg' alt="">
+                            </div></div></div>
+        
+        <div class="fangx">
+         <!-- <div class="btn right">&gt;</div>
+        <div class="btn left">&lt;</div> -->
+    </div> 
+
+        <div class='button'>
+            <ul class = 'allli'>
+                <!-- <li class="li1">1</li>
+                <li>2</li>
+                <li>3</li> -->
+            </ul>
+        </div>
+    </div>
+     <script>
+         var start = {
+              nextindex: 0,
+              nowindex: undefined,
+              flag: true,
+              flag1:true,
+              index1:undefined,
+              timer : null,
+                n:4,
+                k:0,
+                p:1,
+              len: $('.silderlist').children().length,
+              
+             csh:      function(){
+                                      
+                 if($('.silderlist').children().length>1){     
+                     for(var i=0;i<this.len;i++){
+                     $('.allli').append('<li>'+i+'</li>');
+                     }
+                     $('.fangx').append('<div>&gt;</div>').children().eq(0).addClass('btn right');
+                     $('.fangx').append('<div>&lt;</div>').children().eq(1).addClass('btn left');
+                     $('.allli li').eq(0).addClass('li1');
+                     
+                      
+                 }
+               
+                 this.sport(); 
+             },
+             sport:    
+                    function(){
+                        var _this =this;
+                    //    _this.timer =  setTimeout(function(){
+                    //       _this.getindex('right');
+                    //       _this.chufa();
+                    //       _this.sport();
+                    //    },2000)
+                        if(this.flag){
+                        $('.right').add($('.left')).add($('li')).on('click',function(){
+                            clearTimeout(_this.timer);
+                             _this.p  =  _this.n - _this.k;
+                  if($(this).attr('class') =='btn right'){
+                       _this.getindex('right');
+                    //    if(!_this.nowindex == _this.nextindex)
+                       _this.chufa();
+                      
+                       
+                       _this.flag = true;
+                     
+                       
+                      }else if($(this).attr('class')=='btn left'){
+                          _this.getindex('left');
+                        //   if(!_this.nowindex == _this.nextindex)
+                       _this.chufa();
+                      }else{
+                         var  index = $(this).index();
+                         _this.index1 = index;
+                         _this.getindex(index);
+                         console.log(_this.nowindex +'-'+_this.nextindex)
+                        //  if(!_this.nowindex == _this.nextindex)
+                       _this.chufa();
+                      }})}
+                     
+                      $('.silder').on('out',function(){       
+                        if(_this.nextindex !== _this.nowindex){
+                   $(this).fadeOut(300).find($('img')).animate({width:'0'});
+                    $('li').eq(_this.nowindex).removeClass('li1').end().eq(_this.nextindex).addClass('li1');
+                            _this.flag = true;
+                    }}
+                    );
+                 $('.silder').on('in',function(){    
+                     if(_this.nextindex !== _this.nowindex)  
+                 $(this).delay(300).fadeIn(300).find($('img')).delay(300).animate({'width':'40%'},300,'linear');
+                 console.log( $(this).find($('img')).css('width'));
+               
+                 _this.flag = true;
+               
+                      })},
+
+             getindex: function(names){
+              this.nowindex= this.nextindex;
+                 if(names =='right'){ 
+                     this.nextindex =this.nextindex == this.len -1 ?  0 : this.nextindex + 1;
+                     console.log(this.nowindex + '-'+this.nextindex)
+                    
+                    
+                    
+                 }else if(names == 'left' ){
+                     this.nextindex = this.nextindex == 0 ? this.len - 1 : this.nextindex - 1;  
+                 
+                 }else{
+                    this.nextindex = names;  
+                 }},
+                    chufa:
+                         function(){
+                      
+                      if(this.flag){
+                          this.flag =false;
+                         
+                      $('.silder').eq(this.nowindex).trigger('out');
+                
+                  $('.silder').eq(this.nextindex).trigger('in');
+                    }},
+                    
+           }
+           
+                    
+                    
+         start.csh();
+         var obj = {
+             id:0,
+             cool:function bb(){
+                 console.log(this);
+                  console.log(this.id);
+             }
+         }
+         var id = 1; 
+           setTimeout ( obj.cool,1000);
+        
+         
+      
+    
+        
+        
+       
+     
+     
+     
+     </script>
+
+
+ 
+
+    </body>
+    </html>

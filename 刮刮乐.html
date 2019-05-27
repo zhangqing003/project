@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>刮刮乐</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        #demo{
+            
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="demo" width="300" height="300"></canvas>
+     <script>
+         var canvas = document.getElementById('demo');
+         var ctx = canvas.getContext('2d');
+         var x, y, lastx, lasty;
+         var w = canvas.width;
+         var h = canvas.height;
+         console.log(w +'-' +h)
+         
+         function init() {
+
+             var img = new Image();
+             ctx.beginPath();
+             ctx.fillStyle = '#ccc';
+             ctx.fillRect(0, 0, 300, 300);
+             if (Math.random() > 0.5) {
+                 img.src = './1111.jpg';
+          
+
+             } else {
+                 img.src = './rb.jpg';
+               
+             }
+             img.onload = function () {
+
+                 canvas.style.backgroundImage = 'url(' + img.src + ')';
+                 ctx.globalCompositeOperation = 'destination-out';
+                 addEventListener('mousedown', downfun);
+             }
+         } init();
+         function downfun(e) {
+             lastx = e.clientX - canvas.offsetLeft;
+              lasty = e.clientY - canvas.offsetTop;
+             addEventListener('mousemove', movefun);
+             addEventListener('mouseup',upfun)
+         }
+         function movefun(e) {
+             ctx.beginPath();
+             ctx.moveTo(lastx, lasty);
+             ctx.lineTo(x, y);
+             ctx.lineWidth = 40;
+             ctx.stroke();
+             ctx.closePath();
+              x = e.clientX - canvas.offsetLeft;
+              y = e.clientY - canvas.offsetTop;
+             ctx.beginPath();
+             ctx.fillStyle = 'red';
+             ctx.arc(x, y, 20, 0, Math.PI * 2, 1);
+             ctx.fill();
+             lastx = x;
+             lasty = y;
+            
+         }
+         function clearall() {
+             var s = ctx.getImageData(0, 0, 300, 300);
+             var len = s.data.length;
+             c
+             var c = 0;
+             for (var i = 0; i < len; i += 4) {
+                 if (s.data[i] == 0)
+                 { c++; }
+             }
+             if (c > w *h*0.7) {
+                 console.log(c)
+                 console.log(w*h*0.7)
+                 ctx.clearRect(0, 0, 300, 300);
+             }
+         }
+                     
+             
+           
+         function upfun() {
+             removeEventListener('mousemove', movefun);
+             clearall();
+         }
+     
+         
+
+
+   
+         
+
+     </script>
+
+</body>
+</html>

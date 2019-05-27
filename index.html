@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/css/index.css"></link>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="search">
+            <input type="text"></input>
+            Male:<input type='radio' class='btn mBtn' name='sex'></button>
+            Female:<input type='radio' class='btn fBtn' name='sex'></button>
+            All:<input type="radio" checked='checked' class='btn aBtn' name='sex'></input> 
+        </div>
+        <div class='friendList'>
+            <ul>
+                <!-- <li>
+                    <img src="./src/img/1.png"></img>
+                    <p class="name">王港</p>
+                    <p class="des">颈椎不好</p>
+                </li>
+                <li>
+                    <img src="./src/img/2.png"></img>
+                    <p class="name">刘金雷</p>
+                    <p class="des">你没有见过陌生的脸</p>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <script>
+        // 1.
+        var personArr = [{name: '王港', src: './src/img/3.png', des: '颈椎不好', sex: 'm'}, {name: '刘莹', src: './src/img/5.png',des: '我是谁', sex: 'f'} ,{name: '王秀莹', src: './src/img/4.png', des: '我很好看', sex: 'f'} , {name: '刘金雷', src: './src/img/1.png', des: '你没有见过陌生的脸', sex: 'm'}, {name: '刘飞翔', src: './src/img/2.png', des: '瓜皮刘', sex: 'm'}];
+        
+        // 2.
+        var oUl = document.getElementsByTagName('ul')[0];
+        // store 全局
+
+        // var curSexStr = '';
+        // var curFilterStr = '';
+        var store = {
+            text: '',
+            sex: 'btn aBtn'
+        }
+        
+
+        // 3. 根据数组内的对象来展示信息条目
+        function renderList (arr) {
+            var htmlStr = '';
+            arr.forEach(function (ele, index) {
+                htmlStr += '<li><img src="' + ele.src  + '"/><p class="name">' + ele.name + '</p><p class="des">' + ele.des + '</p></li>';
+            });
+            oUl.innerHTML = htmlStr;
+        }
+        
+        renderList(personArr);
+
+        // 4.
+        var oInp = document.getElementsByTagName('input')[0];
+        
+        // 6.
+        oInp.oninput = function () {
+            store.text = this.value;
+            renderList(  lastFilter(personArr) );
+        }
+
+        // 5.过滤数组
+        function filterByText (filterText, arr) {
+            // 'btn mBtn'
+            if (!filterText) {
+                return arr;
+            }else {
+                return arr.filter(function (ele, index) {
+                    return ele.name.indexOf(filterText) != -1;
+                });
+            }
+        }
+
+
+        var oRadioArr = Array.prototype.slice.call(document.getElementsByClassName('btn'), 0);
+
+        oRadioArr.forEach(function (ele, index) {
+            ele.onclick = function () {
+                store.sex = this.className;
+                renderList(  lastFilter(personArr) );
+            }
+        });
+
+        function filterBySex (sexStr, arr) {
+            if (sexStr == 'btn aBtn') {
+                return arr;
+            }else {
+                return arr.filter(function (ele, index) {
+                    // 'btn aBtn' .indexOf('f')
+                    if (sexStr.indexOf(ele.sex) != -1) {
+                        return true;
+                    }
+                })
+            }
+        };
+
+
+        function combineFilterFunc (obj) {
+            var filterFuncObj = obj;
+            return function (arr) {
+                var lastArr = arr;
+                for (var prop in filterFuncObj) {
+                    lastArr = filterFuncObj[prop](store[prop], lastArr);
+                }
+                return lastArr;
+            };
+        }
+
+        var lastFilter = combineFilterFunc({text: filterByText, sex: filterBySex});
+       
+
+        // var arr = [0, 1, 2];
+
+        // Array.prototype.join = function (reg) {
+        //     var str = '';
+        //     for (var i = 0; i < this.length - 1; i++) {
+        //         str += this[i] + reg;
+        //     }
+        //     str += this[this.length - 1];
+
+        //     return str;
+        // }
+
+        // console.log( arr.join('--') );
+        // var arr = [10, 20, 30, 40, 50];
+        // Array.prototype.myMap = function (func) {
+        //     var newArr = [];
+        //     for (var i = 0; i < this.length; i++) {
+        //         newArr.push( func(this[i], i) )
+        //     }
+        //     return newArr;
+        // }
+
+        // var arr2 = arr.myMap(function (ele, index) {
+        //     return ele + 1;
+        // });
+        // console.log(arr2);
+
+        // var obj = {};
+        // var arr = [10, 20, 30, 40, 50];
+        // arr.reduce(function (prevEle, ele, index, selfArr) {
+        //     console.log(prevEle, ele, index, selfArr);
+        //     if (!prevEle.arr) {
+        //         prevEle.arr = [ele];
+        //     }else {
+        //         prevEle.arr.push(ele);
+        //     }
+        
+        //     return prevEle;
+        // }, obj);
+        
+        // var cookieStr = "key1=value1; key2=value2; key3=value3";
+        // var cookieObj = {
+
+        // };
+
+        // function parseCookie (str, obj) {
+        //     var cookieArr = str.split('; ');
+        //     cookieArr.reduce(function (prevEle, ele, index) {
+        //         var arr = ele.split('=');
+        //         obj[arr[0]] = arr[1];
+        //         return obj;
+        //     }, obj);
+        // }
+
+        // parseCookie(cookieStr, cookieObj);
+
+        // console.log(cookieObj);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

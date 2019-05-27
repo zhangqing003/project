@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>扫雷</title>
+    <style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .demo{
+        
+        position:absolute;
+        width:160px;
+        height:300px;
+        top:10%;
+        left:50%;
+        background-color:gray;
+        margin: 0px;
+        
+    }
+   .easy,.zj,.gj {
+        margin:60px;
+        width:40px;
+        height: 30px;
+        background-color:lightgreen;
+        text-align: center;
+        line-height: 30px;
+
+    }
+     div:hover{
+        background:red;
+
+    }
+    .all{
+        list-style-type: none;    
+        left:50%;
+        top:20%;
+        position:absolute;
+        width:330px;
+        height:370px;
+
+    }
+    .oli{
+        background-color:silver;
+        width:270px;
+        height: 100px;
+
+    }
+    .oli1{
+        position: relative;
+        background-color:silver;
+        width:270px;
+        height:270px;
+        border: 1px solid white;
+    }
+    span{
+        position:relative;
+        float:left;
+        width:70px;
+        height:70px;
+        margin:3%;
+        
+    }
+	.sp2{
+        background-image: url('./xl.png');
+        background-size: cover;
+	
+	}
+    .sp1,.sp3{
+        line-height: 70px;
+        text-align: center;
+        font-size: 40px;
+        color: red;
+        background-color:black;
+    }
+    .align{
+        list-style-type: none;    
+        position: absolute;
+    }
+    p{
+
+        text-align: center;
+        line-height: 30px;
+        text-indent: 0px;
+        background-color: white;
+        position:absolute;
+        display: none;
+        width:28px;
+        height: 28px;
+        font-size: 20px;
+        margin-top:-65%;
+        color:red;
+        
+    }
+    .align li{
+        overflow: hidden;
+        position: relative;
+        text-indent: 300px;
+        background-origin: padding-box;
+        background-size: cover;
+        left: 0px;
+        color:  gray;
+        float: left;
+        height: 28px;
+        width: 28px;
+        border: 1px solid black;
+        background-color: gray;
+    }
+    img{
+        position: relative ;
+        display: none;
+        width:100%;
+        height:100%;
+        margin-top:-65%;
+    }
+  
+    
+    </style>
+</head>
+<body>
+    <form class="demo">
+        <div  class="easy">初级</div>
+        <div class="zj">中级 </div>
+        <div  class="gj">高级</div>
+    </form>
+	<ul class="all">
+	<li>
+	<span></span>
+	<span></span>
+    <span></span>
+    
+	</li>
+	<li>
+        <ul class="align"></ul>
+    </li>
+	</ul>
+    <script src="jquery-3.3.1.js"></script>
+    <script>
+	var index = undefined;
+    var timer = undefined;
+    
+    var gamestart = {
+        csh:function(){
+            self = this;
+            $('.easy').add($('.zj')).add($('.gj')).on('click',function(){
+            $('.demo').css('display','none')
+            console.log($(this)[0].className)
+               if($(this)[0].className=='easy'){
+			        $('ul').addClass('game');  
+			        $('li').eq(0).addClass('oli');  
+			        $('li').eq(1).addClass('oli1');
+			        $('span').eq(0).addClass('sp1');  
+			        $('span').eq(1).addClass('sp2'); 
+			        $('span').eq(2).addClass('sp3');  
+					$('span').eq(0)[0].innerHTML = '10';
+					$('span').eq(2)[0].innerHTML = '0';
+                   console.log( $('span').eq(0)[0].innerHTML)
+				index = 1;
+				self.process(index);
+                }
+               else if($(this)[0].className=='zj'){}
+               else {} 
+
+            })
+        },
+		process:function(rank){
+			  if(rank = 1){ 
+                  var t = 0, x = 10;
+               timer = setInterval(
+                   ()=>{
+                       t++;
+                       $('.sp3')[0].innerHTML = t;
+                   }
+               ,1000)
+                  var j = 1,alllei= [],filterlei=[];
+                for(let i = 0 ;i<81;i++)
+                {
+                     let j = document.createElement('li');
+                    j.className = 'block';
+                    j.innerHTML = i;
+                    $('ul').eq(1).append(j);      
+                }
+                for(let i = 0; i<100;i++)
+                {
+                    let  k = Math.floor(Math.random() * 100);
+                    alllei.push(k);}
+                    alllei.sort(1,2);
+                    for(let i = 0 ; i<alllei.length;i++)
+                    {
+                        if((alllei[i] != alllei[i-1])&(alllei[i]<81))
+                        {
+                            filterlei.push(alllei[i]);}
+                            }  
+                        filterlei.sort(function(){
+                            return Math.random()-0.5;
+                        })
+                         for(let i=0; i<10;i++){
+                             var m = document.createElement('img');
+                             m.src = './sl.jpg'; 
+                            $('.block').eq(filterlei[i]).append(m);
+                         }
+                         for(let m=0;m<81;m++)
+                         {
+
+                            (function(){
+                                          let i = m;
+                                        let nmb = [];
+                                        let q = 0; 
+                                        if((i%9!=0)&((i+1)%9!= 0))
+                                        {
+                                         nmb.push($('.block').eq(parseInt(i) + 1));
+                                        nmb.push($('.block').eq(parseInt(i) + 10));
+                                        nmb.push($('.block').eq(parseInt(i)+ 9));
+                                        nmb.push($('.block').eq(parseInt(i) + 8));
+                                        if(i-10>0&i-9>0&i-8>0&i-1>0){
+                                        nmb.push($('.block').eq(i-10));
+                                        nmb.push($('.block').eq(i-9));
+                                        nmb.push($('.block').eq(i-8));
+                                        nmb.push($('.block').eq(i-1));  }                                     
+                                       for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {
+                                                    q++}             }     
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                      if(q!=0)
+                                    {
+                                       op.innerHTML = q;}
+                                       else {
+                                           op.innerHTML = ' ';
+                                       }
+                                      $('.block').eq(i).append(op);    
+                                       }
+                                       else if((i%9==0)&(i>8&i<72)){    
+                                        nmb.push($('.block').eq(parseInt(i) + 1));
+                                        nmb.push($('.block').eq(parseInt(i) + 10));
+                                        nmb.push($('.block').eq(parseInt(i)+ 9));
+                                        nmb.push($('.block').eq(i-9));
+                                        nmb.push($('.block').eq(i-8));
+                                        for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {q++}}   
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                      if(q!=0)
+                                    {  op.innerHTML = q;}
+                                       else { op.innerHTML = ' '; }
+                                      $('.block').eq(i).append(op);  } 
+                                      if(((i+1)%9==0)&(i>8&i<80)){
+                                        nmb.push($('.block').eq(parseInt(i)+ 9));
+                                        nmb.push($('.block').eq(parseInt(i) + 8));
+                                        nmb.push($('.block').eq(i-10));
+                                        nmb.push($('.block').eq(i-9));
+                                        nmb.push($('.block').eq(i-1)); 
+                                        for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {q++}}   
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                      if(q!=0)
+                                    {  op.innerHTML = q;}
+                                       else { op.innerHTML = ' '; }
+                                      $('.block').eq(i).append(op);  
+                                      }
+                                      if(i==0){
+                                        nmb.push($('.block').eq(parseInt(i) + 1));
+                                        nmb.push($('.block').eq(parseInt(i) + 10));
+                                        nmb.push($('.block').eq(parseInt(i)+ 9));
+                                        for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {q++}}   
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                      if(q!=0)
+                                    {  op.innerHTML = q;}
+                                       else { op.innerHTML = ' '; }
+                                      $('.block').eq(i).append(op);
+                                      }
+                                      if(i==8){
+                                        nmb.push($('.block').eq(parseInt(i)+ 9));
+                                        nmb.push($('.block').eq(parseInt(i) + 8));
+                                        nmb.push($('.block').eq(i-1));
+                                        for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {q++}}   
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                       if(q!=0)
+                                    {  op.innerHTML = q;}
+                                       else { op.innerHTML = ' '; }
+                                      $('.block').eq(i).append(op);
+                                      }
+                                      if(i==72){
+                                        nmb.push($('.block').eq(i-9));
+                                        nmb.push($('.block').eq(i-8)); 
+                                        nmb.push($('.block').eq(parseInt(i)+ 1));
+
+                                        for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {q++}}   
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                       if(q!=0)
+                                    {  op.innerHTML = q;}
+                                       else { op.innerHTML = ' '; }
+                                      $('.block').eq(i).append(op);
+                                      }
+                                      if(i==80){
+                                        nmb.push($('.block').eq(i-10));
+                                        nmb.push($('.block').eq(i-9));
+                                        nmb.push($('.block').eq(i-1));
+                                        for(let y=0; y<nmb.length; y++)
+                                       {     
+                                        if (nmb[y].find('img').eq(0).length == 1)
+                                                 {q++}}   
+                                       var op = document.createElement('p');
+                                       op.className ='p';
+                                       if(q!=0)
+                                    {  op.innerHTML = q;}
+                                       else { op.innerHTML = ' '; }
+                                      $('.block').eq(i).append(op);
+                                      }   
+                                       })()
+                         }  
+                    
+                         $('.block').one('contextmenu',function(e){
+                             e.preventDefault();
+                             if(x>0&($(this).find('p').css('display')=='none')){
+                                 x--;
+                                 let a = document.createElement('img');
+                                     a.src = './hq.jpg';
+                                     if($(this).find('img').length ==0){ 
+                                  $(this).append(a);
+                                  $(this).find('img').css({'display':'block'})}
+                                  else{ 
+                                    $(this).append(a);
+                                      $(this).find('img').eq(1).css({'display':'block'})
+                                  };
+                                  
+                             $('.sp1')[0].innerHTML = x;}
+                         })
+                          $('.block').on('click',function(){
+                              console.log(this)
+                              if($(this).find('img').eq(0).length == 1)
+                              {   console.log(this)
+                                    clearInterval(timer);
+                                  $(this).find('img').css({'display':'block'});
+                                  $('.sp2').css({'backgroundImage':'url(./kl.png)'}) }
+                                  else{
+                                      if($(this).find('p')[0].innerHTML == ' ')
+                                      {
+                                        
+                                                  }
+                                      else{
+                                       $(this).find('p').css({'display':'block'})} 
+                                  } })
+			                         }
+			                 else if(rank = 2){
+			                     }
+			             else {
+			  
+			  }
+		}
+        
+    }
+    gamestart.csh();
+   
+  
+    
+    
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

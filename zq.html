@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .change{
+        color:red;
+    }
+    input{
+        position:absolute;
+        top:100px;
+        left:50%;
+    }
+    .list{
+        position: relative;
+        left:50%;
+        top:120px;
+    }
+
+    </style>
+</head>
+<body>
+    <div id = "app" >
+        <input type="text" @keyup.enter='render' v-model ='val'>
+            <div class="list">工作清单
+          <div v-for = '(item,index) in xr'>
+       <span>{{index+1}}</span>
+        <span>{{item.title}}</span>
+       <span :class='success' @click = 'add(index)'>√</span>
+       <span @click ='deleted(index)'>×</span></div></div>
+       <div class="list 1">已完成
+       <div v-for = '(item,index) in tj'>
+            <span>{{index+1}}</span>
+             <span>{{item.title1}}</span>
+            <span :class='success1'>√</span>
+            <span @click ='deleted(index)'>×</span></div></div>       
+         <!-- <my-component></my-component> -->
+         <!-- <button @click ='get'></button> -->
+    </div>
+    <script src="https://unpkg.com/vue@2.6.10/dist/vue.js"> </script>
+<script>
+         
+    //    var son =  Vue.component('my-component',{
+    //         template:`<span> son:{{num1}} </span>`,
+    //         data(){
+    //          return {
+    //              num1: 0,   
+    //          }  
+    //         },
+    //         methods:{
+    //             add(){
+    //                 num1++
+    //             }
+    //         },
+    //         computed:{
+    //                   get(){
+    //                 return this.num1++;}  
+    //         }
+    //   })
+     
+    const save = {
+            set(xr,tj){
+              return   localStorage.setItem('val',JSON.stringify(xr)),localStorage.setItem('val1',JSON.stringify(tj));
+            },
+            get(s){
+               if(s == 0)  return JSON.parse(localStorage.getItem('val'));
+                else return JSON.parse(localStorage.getItem('val1'));
+
+            }
+        }
+      var vm = new Vue({
+        el:'#app',
+          data:{
+              success:'none',
+              success1:'change',
+              val:'',
+              d:'',
+              c:'',
+               hr :[],
+               xr: save.get(0)||[
+               ],
+               tj:save.get(1)||[]
+          },
+          methods:{
+              deleted(index){
+                this.xr.splice(index,1);
+                save.set(this.xr,this.tj)
+              },
+              render(){
+           
+                  this.d = '√';
+                  this.c = '×'; 
+            var it = {
+                title:this.val, }
+                save.set(this.xr,this.tj)
+           this.xr.push(it);
+           console.log(localStorage)
+           this.val ='';
+              },
+             add(index){
+                var it1 = {
+                    title1:this.xr[index].title,                   
+                }
+                console.log(index)
+                this.tj.push(it1);
+                 this.xr.splice(index,1);
+                 save.set(this.xr,this.tj);
+                 console.log(localStorage)
+              }
+          }
+    
+        //   components:{
+        //       'my-component': son,
+        //       }
+      });
+      console.log(vm.xr)
+    
+</script>
+</body>
+</html>

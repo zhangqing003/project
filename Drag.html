@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Drag</title>
+    <style>
+        #demo{
+          
+            
+            width:100px;
+            height:100px;
+            background-color:bisque;
+        }
+        #demo1{
+           
+          
+            width:400px;
+            height:400px;
+            background-color:cadetblue;
+        }
+          
+       
+    </style>
+</head>
+<body>
+    
+
+    <div id="demo" draggable="true"></div>
+    <div id="demo1"></div>
+    <script>
+        var drag = document.getElementById('demo')[0];
+        var drop = document.getElementById('demo1')[0];
+        demo.ondragstart = function (e) {
+            e.dataTransfer.setData('data', e.target.id)
+        }
+        demo1.ondragover = function (e) {
+
+            e.preventDefault();
+        }
+        addEventListener('drop', function (e) {
+            var data = e.dataTransfer.getData('data');
+            e.target.appendChild(document.getElementById(data))
+        })
+    </script>
+</body>
+</html>

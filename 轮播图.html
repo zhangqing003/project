@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>轮播图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='' href =" ./lbt.css">
+    
+     <style>
+        *{
+            padding: 0PX;
+            margin: 0px;
+        }
+        .aaa{
+            position: relative;
+            width: 400px;
+            height:250px; 
+            margin: 100px  auto  ;
+            border: 1px solid black;
+            overflow: hidden;
+          
+
+        }
+        .aaa ul{
+            position: absolute;
+            left:0px;
+            width:2000px;
+            list-style: none;
+        }
+             
+        .aaa ul li{
+            width:400px;
+            height:250px;
+            float: left;
+        }
+        .aaa ul li img {
+            widows: 100%;
+            height:100%;
+        }
+        .aaa .btn{
+            position:absolute;
+            top: 50%;
+            margin-top: -20px;
+            width: 40px;
+            height: 40px;
+            background-color: #000000;
+            opacity:0.1;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        .aaa .btn:hover{
+            opacity: 0.6;
+
+        }
+        .aaa .leftBtn{
+            left:10px;
+             
+        }
+        .aaa .rightBtn{
+            right: 10px;
+        }
+        .aaa .index{
+            position:absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+
+        }
+        .aaa .index span{
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right:10px;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
+        .aaa  .index span.active{
+            
+            background-color:red;
+        }
+        .a{
+            position:absolute;
+            width:100px;
+            left: 10px;
+            height: 100px;
+            background-color: #000000;
+        }   
+    </style> 
+</head>
+<body>  
+    <script src = './jquery-3.3.1.js'></script>
+        
+     <div class="aaa"><ul>
+        <li><img src="./img/rb.jpg" alt=""></li>
+        <li><img src="./img/zgr.jpg" alt=""></li>
+        <li><img src="./img/faker.jpg" alt=""></li>
+        <li><img src="./img/ybn.jpg" alt=""></li>
+        <li><img src="./img/rb.jpg" alt=""></li>   
+    </ul>    
+    <div class = "btn leftBtn">&lt;</div>
+    <div class = "btn rightBtn"> &gt;</div>
+    <div class="index">
+        <span  class="active"></span>
+        <span ></span> 
+        <span ></span>
+         <span ></span></div>
+    <script>  
+    var odiv = document.getElementsByClassName("ccc")[0];
+    var odiv1 = document.getElementsByTagName("ul")[0];
+    var oright = document.getElementsByClassName("btn rightBtn")[0];
+    var oleft = document.getElementsByClassName("btn leftBtn")[0];
+    
+     var  ospan  = document.getElementsByTagName('span');
+    var oli = document.getElementsByTagName('li');
+        var jiange = 0;
+    var jiange1 = 1600;
+    var n = 0;
+    var m = 0;
+    var timer =null;
+    var timer1 = null;
+    var timer2 = null;
+    var timer3 = null;
+
+     
+
+         $('span').eq(3).on('click',function(){
+             odiv1.style.left = -1200 + 'px';
+             for(m;m<4;m++){
+                $('span').eq(m).removeClass('active');
+                $('span').eq(3).addClass('active');
+             }
+         m = 0;} )
+         $('span').eq(2).on('click',function(){
+             odiv1.style.left = -800 + 'px';
+             for(m;m<4;m++){
+                $('span').eq(m).removeClass('active');
+                $('span').eq(2).addClass('active');
+             }
+         m = 0;})
+         $('span').eq(1).on('click',function(){
+             odiv1.style.left = -400 + 'px';
+             for(m;m<4;m++){
+                $('span').eq(m).removeClass('active');
+                $('span').eq(1).addClass('active');
+             }
+         m = 0;})
+         $('span').eq(0).on('click',function(){
+             odiv1.style.left = 0 + 'px';
+             for(m;m<4;m++){
+                $('span').eq(m).removeClass('active');
+                $('span').eq(0).addClass('active');
+             }
+         m = 0;})
+         
+         
+
+        function pipei(){
+            if(jiange == 0||1600){
+                for(n;n<4;n++){
+                    $('span').eq(n).removeClass('active');
+                 $('span').eq(1).addClass('active');}3
+                 n=0;}
+            
+            if(jiange== -400){
+                for(n;n<4;n++){
+                     $('span').eq(n).removeClass('active');
+            $('span').eq(2).addClass('active')}
+            
+            n=0;}
+            if(jiange== -800){
+                for(n;n<4;n++) {
+                     $('span').eq(n).removeClass('active');
+                $('span').eq(3).addClass('active')}
+                n=0;}
+            
+            if(jiange==-1200){
+            for(n;n<4;n++){
+                $('span').eq(n).removeClass('active');
+            $('span').eq(0).addClass('active');}
+            n=0;}}
+            
+        function pipei1(){
+            if(jiange1 == 1600){
+                for(n;n<4;n++){
+                    $('span').eq(n).removeClass('active');
+                 $('span').eq(3).addClass('active');}
+                 n=0;}
+            
+            if(jiange1 == 1200){
+                console.log(jiange1)
+                for(n;n<4;n++){
+                     $('span').eq(n).removeClass('active');
+            $('span').eq(2).addClass('active');}
+            
+            n=0;}
+            if(jiange1== 800){
+                for(n;n<4;n++) {
+                     $('span').eq(n).removeClass('active');
+                $('span').eq(1).addClass('active');}
+                n=0;}
+            
+            if(jiange1==400){
+            for(n;n<4;n++){
+                $('span').eq(n).removeClass('active');
+            $('span').eq(0).addClass('active');}
+            n=0;}}
+    
+    
+        
+        
+         oright.onclick = function(){
+            clearInterval(timer2) ;
+              if(odiv1.offsetLeft == -1600)
+              {odiv1.style.left = odiv1.offsetLeft + 1600 + 'px';} 
+              switch(odiv1.offsetLeft)
+              {
+                  case -400: jiange = -400;
+                  case -800: jiange = -800;
+                  case -1200: jiange = -1200;                   
+              }         
+           timer2 = setInterval(function() {   
+            if(jiange - odiv1.offsetLeft != 400)
+               {odiv1.style.left = odiv1.offsetLeft - 10 +'px'; }
+               else
+                {  
+                    pipei();
+                    clearInterval(timer2); 
+                    stamove();
+                    while(odiv1.offsetLeft == -1600)
+                {   
+                     clearInterval(timer);
+                     odiv1.style.left = odiv1.offsetLeft + 1600 + 'px';
+                    jiange = 400;
+                      stamove(); } 
+            } },30)       
+
+           }   
+           oleft.onclick = function(){
+            
+              clearInterval(timer3); 
+              if(odiv1.offsetLeft == 0)
+               { odiv1.style.left = odiv1.offsetLeft - 1600 + 'px';} 
+               switch(odiv1.offsetLeft)
+               {     
+                   case -400: jiange1 = 400;
+                   case -800: jiange1 = 800;
+                   case -1200: jiange1 = 1200 ;   
+               } 
+            
+              timer3 = setInterval(function() {  
+            if(jiange1 + odiv1.offsetLeft != 400)
+           { odiv1.style.left = odiv1.offsetLeft + 10 +'px';
+           }
+
+               else 
+                {
+                    pipei1();
+                    console.log(jiange1);
+                    clearInterval(timer3);      
+                stamove1();    
+                while(odiv1.offsetLeft == 0)
+                {   
+                     clearInterval(timer1);
+                     odiv1.style.left = odiv1.offsetLeft - 1600 + 'px';
+                    jiange1 = 1600;
+                    
+                    stamove1();}
+                    }
+                   }, 30)           
+       }    
+       function stamove(){
+           
+               oright.onclick = function(){      
+                   clearInterval(timer);
+                   if(jiange - odiv1.offsetLeft == 400)
+                  { jiange = jiange - 400;}
+                  
+             timer = setInterval(function(){  
+                if(jiange - odiv1.offsetLeft != 400)
+               {odiv1.style.left = odiv1.offsetLeft - 10 +'px'; }
+                 else{  
+                    pipei();
+                     clearInterval(timer);
+                     pipei();
+
+                     
+                 stamove();
+                 while(odiv1.offsetLeft == -1600)
+                {   
+                     clearInterval(timer);
+                     odiv1.style.left = odiv1.offsetLeft + 1600 + 'px';
+                    jiange = 400;
+                      stamove();}
+                  
+                   }},30)
+               }}
+           
+         
+       function stamove1(){
+               oleft.onclick = function(){
+                   clearInterval(timer1);
+                   if(jiange1 + odiv1.offsetLeft == 400)
+                   {jiange1 = jiange1 - 400; }
+                   console.log(jiange1);
+             timer1 = setInterval(function(){  
+                if(jiange1 + odiv1.offsetLeft != 400)
+               {odiv1.style.left = odiv1.offsetLeft + 10 +'px'; }
+                 else{ 
+                    pipei1();
+                    console.log(jiange1);                      
+                     clearInterval(timer1);
+                 stamove1();
+                 
+                  
+                    while(odiv1.offsetLeft == 0)
+                {   
+                     clearInterval(timer1);
+                     odiv1.style.left = odiv1.offsetLeft - 1600 + 'px';
+                    jiange1 = 1600;
+                    
+                    stamove1();}
+                      
+                  
+                   }},30)
+               }
+           }
+
+        </script>
+
+</body>
+</html>

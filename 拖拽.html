@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>拖拽</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .demo{
+            position: relative;
+            width: 100px;
+            background-color: red;
+            height:100px;
+            border-radius: 50%;
+        }
+    </style>
+   </head>
+   <body>
+    <div class = 'demo'></div>
+
+
+    <script>
+    var odemo = document.getElementsByClassName('demo')[0];
+     var tuozhuai = {
+         down: function(dom){
+               this.ele = dom;
+                this.down1();
+             }, 
+         down1:   function(){ 
+            
+             this.ele.onmousedown = this.move.bind(this);
+             console.log(this);  
+            } , 
+         move:    function(e){ 
+             console.log(this)
+              document.body.onmousemove = this.move1.bind(this);
+               this.ele.onmouseup = this.up1.bind(this);
+               this.disX = e.clientX - this.ele.offsetLeft; 
+              this.disY = e.clientY - this.ele.offsetTop;
+               
+                     
+               },
+        move1: function(e){  
+                var newleft = e.clientX - this.disX ;   
+                var newtop = e.clientY -this.disY;
+                this.ele.style.left =  newleft + 'px';
+                this.ele.style.top = newtop + 'px';
+               
+            
+           
+        },
+        up1:function(){
+               
+              document.body.onmousemove = null;
+              this.ele.onmouseup = null;
+              cls.setcookie('X',this.ele.style.left,3).setcookie('Y',this.ele.style.top,3);
+
+        }
+         }
+         var cls = {
+                 setcookie:  function (key,value,date){
+                 var oDate = new Date();
+                 oDate.setDate(oDate.getDate() + date);
+                 document.cookie = key + '=' + value + ' ;expires =' + oDate ; 
+                    return this;
+                    
+                
+                
+                 },
+                  removecookie:function(key){
+                   
+                    this.setcookie(key,'',-1);       
+                    return this;    
+                  },
+                  getcookie: function(key,callback){       
+                    var allcookiestr = document.cookie;
+                    var allcookiearr = allcookiestr.split('; '); 
+                    allcookiearr.forEach(
+                        function(ele,index){
+                           var cookiearr =  allcookiearr[index].split('=');
+                           if (cookiearr[0] == key){
+                               var cookievalue = cookiearr[1];
+                               callback(cookievalue);
+                           }
+                            
+                        }
+                    ) 
+                    return this;
+                  }
+      
+                }
+        
+
+        tuozhuai.down(odemo)
+         
+        
+             
+        
+    
+    </script>
+
+
+   </body></html>

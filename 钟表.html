@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>钟表</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        .all{
+            
+            position:relative;
+            width:400px;
+            height:400px;
+            margin-top:300px;
+            margin-left:400px;
+            border-radius:50%;
+            border:10px solid black;
+             
+        }
+        .radius{
+            position:absolute;
+            width:20px;
+            height:20px;
+            background-color:black;
+            margin-top:190px;
+            margin-left:195px;
+            border-radius:50%;
+        }
+        .hours{
+            position:absolute;
+            width:10px;
+            height:50px;
+            background-color:black;
+            margin-top:150px;
+            margin-left:200px;
+            transform-origin: 0 50px;
+            
+           
+
+        }
+        .minutes {
+            position: absolute;
+            width: 8px;
+            height: 100px;
+            background-color: black;
+            margin-left: 200px;
+            margin-top: 100px;
+            transform-origin: 0 100px;
+            transform:rotate(90deg);
+            
+        }
+        @keyframes start {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .seconds {
+            position: absolute;
+            width: 5px;
+            height: 150px;
+            background-color: black;
+            margin-left: 200px;
+            margin-top: 50px;
+            transform-origin: 0 150px;
+          
+          
+        }
+        
+        ul{
+            width:100%;
+            height:100%;
+        }
+        p{
+           
+           font-size:55px;
+          line-height:100%;
+          
+        }
+        li{
+            
+            list-style:none;
+          
+           line-height:400px;
+           position:absolute;
+           float:left;
+           background-color:black;
+           margin-left:50%;
+            text-align:center;
+           height:20px;
+           width:5px;
+           transform-origin:50% 200px;
+           
+           
+        }
+       
+
+                        
+                      
+        
+
+        p:nth-of-type(1){
+            transform:translate3d(2px,5px,0)
+        }
+       
+        
+         
+            
+    </style>
+</head>
+<body>
+    <div class="all">
+          <div class="hours"></div>
+        <div class="minutes"></div>
+        <div class="seconds"></div>
+        <div class="radius"></div>
+        <ul>
+
+            <li><p>12</p></li>
+            <li><p>1</p></li>
+            <li><p>2</p></li>
+            <li><p>3</p></li>
+            <li><p>4</p></li>
+            <li><p>5</p></li>
+            <li><p>6</p></li>
+            <li><p>7</p></li>
+            <li><p>8</p></li>
+            <li><p>9</p></li>
+            <li><p>10</p></li>
+            <li><p>11</p></li>
+        </ul>
+    </div>
+    
+    <script src="jquery-3.3.1.js"></script>
+      <script>
+          var deg = 0;
+          var deg1 = 0;
+          var deg2 = 0;
+          for (var i = 1; i < 13; i++)
+          {
+               deg += 30;
+              $('li').eq(i).css({ transform: 'rotate(' + deg + 'deg)' })
+          }
+          for (var j = 1; j < 13; j++) {
+              deg1 -= 30;
+              $('p').eq(j).css({ transform: 'rotate(' + deg1 + 'deg)'  })
+          }
+          for (var k = 0; k < 7; k++) {
+              $('p').eq(k).css('text-indent', '-20px')
+          }
+          for (var l = 6; l< 13; l++) {
+              $('p').eq(l).css('text-indent', '-10px')
+          } for(var m = 0; m < 60; m++) {
+              deg2 += 6;
+              $('ul').append('<li></li>');
+              if (deg2 % 30 != 0) {
+                  $('li').eq(m + 12).css({ transform: 'rotate(' + deg2 + 'deg)',height:'10px' })
+              }
+
+          }
+          var date = new Date();
+       
+          var obj = {
+              timer: null,
+              deg: null,
+              deg1: null,
+              deg2: null,
+              timer1: null,
+              timer2: null,
+              timer3: null,
+              seconds: null,
+              minutes: null,
+              csh: function () {
+                  this.seconds = date.getSeconds();
+                  this.minutes = date.getMinutes();
+                  var hours = date.getHours();
+                  var deg3 = Math.ceil(this.minutes * 10 / 60);
+                  this.deg = this.seconds * 6;
+                  this.deg1 = this.minutes * 6,
+                      this.deg2 = hours * 30 + deg3 * 3;
+                  $('.seconds').css({ transform: 'rotate(' + this.seconds * 6 + 'deg)' });
+                  $('.minutes').css({ transform: 'rotate(' + this.minutes * 6 + 'deg)' });
+                  $('.hours').css({ transform: 'rotate(' + (hours * 30 + deg3 * 3) + 'deg)' });
+                  this.time();
+              },
+              time: function () {
+                  var myself = this;
+                  var deg3 = myself.deg1 + 6;
+                  this.timer = setInterval(function () {
+                      myself.deg += 6;
+                      $('.seconds').css({ transform: 'rotate(' + myself.deg + 'deg)' })
+                  }, 1000)
+
+                  this.timer1 = setInterval(function () {
+                      myself.deg1 += 6;
+                      if (myself.deg1 <= deg3) {
+                          $('.minutes').css({ transform: 'rotate(' + (myself.deg1) + 'deg)' })
+                      }
+                      if (myself.deg1 == deg3) {
+                          clearInterval(this.timer1);
+                          this.timer3 = setInterval(function () {
+                              console.log(myself.deg1)
+                              $('.minutes').css({ transform: 'rotate(' + myself.deg1 + 'deg)' })
+                          }, 60000)
+                      }
+                  }, 60000 - myself.seconds * 1000)
+                  this.timer2 = setInterval(function () {
+                      myself.deg2 += 10;
+                      $('.hours').css({ transform: 'rotate(' + myself.deg2 + 'deg)' })
+                  }, 1200000)
+              },
+          }
+                     
+          obj.csh()
+
+          
+
+
+      </script>
+</body>
+</html>

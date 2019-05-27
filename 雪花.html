@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>画</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        .canvas{
+          background-color:black;
+
+     
+          
+        }
+        
+    </style>
+</head>
+<body>
+   <canvas  class="canvas"></canvas>
+   <script>
+       var canvas = document.getElementsByClassName('canvas')[0];
+       canvas.width = window.innerWidth;
+       canvas.height = window.innerHeight;
+       var ctx = canvas.getContext('2d');
+       var snowarr = [];
+       create();
+       function Snow(x,y,deg,scale,speedX,speedY,speedR) {
+           this.x = x;
+           this.y = y;
+           this.deg = deg;
+           this.scale = scale;
+           this.speedX = speedX;
+           this.speedY = speedY;
+           this.speedR = speedR;
+           
+       }
+       Snow.prototype = {
+           draw: function () {
+               ctx.beginPath();
+               ctx.save();
+               var r = 20;
+               ctx.strokeStyle = '#fff';
+               ctx.translate(this.x,this.y);
+               ctx.scale(this.scale, this.scale);
+               ctx.rotate(this.deg/ 180 * Math.PI);
+               ctx.moveTo(-r, 0);
+               ctx.lineTo(r, 0);
+               ctx.lineWidth = 10;
+               var disx = r * Math.cos(60 * Math.PI / 180);
+               var disy = r * Math.sin(60 * Math.PI / 180);
+               ctx.moveTo(disx, disy);
+               ctx.lineTo(-disx, -disy);
+               ctx.moveTo(-disx, disy);
+               ctx.lineTo(disx, -disy);
+               ctx.stroke();
+              
+               ctx.restore();
+
+           }
+       }
+       function create() {
+           for (var i = 0; i < 100; i++) {
+               var x = Math.floor(Math.random() * canvas.width);
+               var y = 0;
+               var deg = Math.random() *30;
+               var scale = 0.5 + Math.random();
+               var speedX = Math.random() + 1;
+               var speedY = Math.random() + 4;
+               var speedR = Math.random() + 4;
+              ( function (x, y, deg, scale, speedX, speedY, speedR) {
+                   setTimeout(function () {
+                       
+                       var snow = new Snow(x, y, deg, scale, speedX, speedY, speedR);
+                       snowarr.push(snow);
+                       snow.draw();
+                   }, Math.random() * 2000)
+               })(x, y, deg, scale, speedX, speedY,speedR)
+           }
+           move();
+       }
+     
+       function move() {
+           var timer = undefined;
+           clearInterval(timer);
+         
+           timer = setInterval(function () {
+           
+               ctx.clearRect(0, 0, canvas.width, canvas.height);
+               for (var j = 0; j < snowarr.length; j++) {
+                   snowarr[j].x = (snowarr[j].x + snowarr[j].speedX) % canvas.width;
+                   snowarr[j].y = (snowarr[j].y + snowarr[j].speedY) % canvas.height;
+                   snowarr[j].deg = (snowarr[j].deg + snowarr[j].speedR) % 60;
+                   snowarr[j].draw();
+
+               }
+           }, 25);
+             
+       }
+    
+       
+       
+
+
+   </script>
+
+
+
+
+
+</body>
+</html>

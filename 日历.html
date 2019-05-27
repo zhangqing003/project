@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>日历</title>
+    <body>
+        <script>
+        var stream = new Promise((resolved,rejected)=>{ 
+            if(Math.random()>0.5){
+                console.log('zzz')
+                resolved(123)
+        }else{rejected(234);
+        }})
+        
+        console.log(stream);
+         var x = stream.then(()=>{let b =3 },(err)=>{console.log(err)})
+        console.log(x);
+        var obj = {
+            a:3,
+            b:4,
+        }
+        var arr1 =[1,2,3]
+        var arr2= [3,...arr1]
+        console.log(arr2)
+        var addobj={
+            c:2,   
+            ...obj
+        }
+        console.log(addobj)
+        
+        // var stream = new Promise(function(resolved,rejected){
+        //     if(Math.random()>0.5){
+        //         resolved(123)
+        //     }
+        //     else{
+        //         rejected(234)
+        //     }
+        // })
+        // console.log(stream)
+        
+
+
+        
+        </script>
+
+
+
+
+    </body></head>

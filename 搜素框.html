@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>百度一下，你就知道</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+        .demo{
+            top:100px;
+            position: absolute;
+            left:50%;
+            margin-left: -260px;
+            width: 480px;
+        } 
+        #so{
+            padding: 10px;
+            width: 480px;
+            
+        }
+        ul{
+            display:none;
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+        li{
+            
+            margin: 5px 10px;
+        }
+        li:hover{
+            background: #bbb;
+            
+
+        }
+        li a {
+            text-decoration: none;
+            color: black;
+        }
+
+
+    </style>
+    </head>
+    <body>
+        
+        <div class="demo">
+                <input type ='text' id = "so">
+                <ul class = "sou">     
+                </ul>   
+        </div>
+        
+        <script>
+            var oso = document.getElementById('so');[0];
+            var osou = document.getElementsByClassName('sou')[0];
+            oso.onkeyup = function(){
+                var value = this.value;
+                if(value){
+                var  oscript = document.createElement('script');
+                 oscript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value +'&cb=callback';
+                 document.body.appendChild(oscript);
+                 oscript.remove();
+                 
+            }else{
+                osou.style.display = 'none';
+                
+            }}
+             function callback(data){
+                 console.log(data);
+                 osou.style.display = 'block';
+                 var list = data.s;
+                 var str = '';
+                 if(list.length>0){
+                 list.forEach(function(ele,index){
+                   str += '<li> <a href = "https://www.baidu.com/s?&wd=' + ele + '" > '+  ele +'</a></li>';
+                   osou.innerHTML = str; })}
+                   else{
+                       osou.style.display = 'none';
+                   }
+                   
+                   
+                   }
+                   
+                   zzz = 2;
+                   var zzz; 
+                   console.log(zzz)
+                   
+                
+
+          
+        </script>
+
+    </body>
+    </head></html>

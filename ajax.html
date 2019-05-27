@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        
+    </style>
+    </head>
+    <body>
+     <div class = 'demo'></div>
+
+
+        <script>
+
+        // function  Ajax (method,url,callback,data,flag ){
+        //     var xml = null;
+        //    if(window.XMLHttpRequest)
+        //    {xml = new XMLHttpRequest();}
+        //    else {
+        //        xml = new ActiveXObject('microsoft.XMLHttp');
+        //    }
+        //    xml.onreadystatechange = function()
+        //    { if(xml.readystate == 4 ){
+        //        if(xml.status == 200 ){
+        //            callback(responseText);
+        //        }
+        //    }
+
+        //   }
+        //   if(method == 'GET'){
+        //       var time = new Date().getTime();
+        //      xml.open('GET' , url + '?time=' + time + '&' + data, flag );
+        //      xml.send(); 
+        //   }else if(method == 'POST'){
+        //       xml.open('POST',url, flag);
+        //       xml.setRequestHeader('content-type','application/x-www-form-urlencoded');
+        //       xml.send(data);}
+
+        //   }
+          
+        //   btn.onclick = function(){
+        //       Ajax('GET',' getnews.php',dealData,'',true);}
+        //   submit.onclick = function(e){
+        //       e.PreventDefault();
+        //       var userval = user.value;
+        //       var ageval = age.value;
+        //       Ajax('POST','post.php',showData,'username = ' + useval + 'useage=' + ageval,true );}
+        //     function dealData(data){
+        //         var value = JSON.parse(data);
+        //          var str = '';
+        //          value.forEach(function(ele,index){
+        //           str += '<li>'+ ele.title + '-' + ele.date + '</li>';     
+        //          })
+        //          document.body.innerHTML = str;
+        //     }
+        //     function showdata(){
+        //         console.log(Data);
+        //     }
+
+        //     function cb(date){
+        //         console.log(date);
+        //         }
+                var cls = {
+                 setcookie:  function (key,value,date){
+                 var oDate = new Date();
+                 oDate.setDate(oDate.getDate() + date);
+                 document.cookie = key + '=' + value + ' ;expires =' + oDate ; 
+                    return this;
+                
+                
+                 },
+                  removecookie:function(key){
+                   
+                    this.setcookie(key,'',-1);       
+                    return this;    
+                  },
+                  getcookie: function(key,callback){       
+                    var allcookiestr = document.cookie;
+                    var allcookiearr = allcookiestr.split('; '); 
+                    allcookiearr.forEach(
+                        function(ele,index){
+                           var cookiearr =  allcookiearr[index].split('=');
+                           if (cookiearr[0] == key){
+                               var cookievalue = cookiearr[1];
+                               callback(cookievalue);
+                           }
+                            
+                        }
+                    ) 
+                    return this;
+                  }
+      
+                }
+                    // cls.setcookie('name','zq',3)
+                    // $.ajax(
+                    //     {
+                    //         type:"GET",
+                    //         url:"http://swwwqw",
+                    //         succcess:function(){ onsole.log('zzz')},
+                    //         error:function(e){console.log('aaa')},
+                    //         data:wd="" / wd =""&cb=,
+                    //         datapyte:"jsonp",jsonpcallback:"xx"}
+
+                    //     }
+                    // )
+                    
+                     
+            
+                
+        
+            </Script>
+            
+    
+    
+
+    </body></html>

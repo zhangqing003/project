@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script>
+     function alldropstart(ev){
+         ev.preventDefault();
+
+     }
+     function drop(ev){
+         ev.preventDefault();
+         var data = DataTransfer.getData('text');
+         ev.appendChiled(document.getElementById(data));
+
+     }
+     function drag(ev){
+             DataTransfer.setData('text',ev.class)
+            console.log('zzz')
+     }
+    
+     
+    </script> -->
+    </head>
+    <body>
+        <div class="demo"   ondrop ="drop(event)" ondragover="alldropstart(event)" 
+         style="width:300px; height: 200px; padding: 10px;  border:1px solid black" ></div>
+         <img src = './timg0.jpg' draggable = 'true' class='image' 
+          width="200px" height="100px" ondragstart="drag(event)">
+          <div class= 'demo' ondragstart = 'drag()' draggable = true></div>
+          <div class = demo1  ondragover = 'alldragover()' ondrop = 'drop()' > </div>
+         <canvas class = 'demo' width = 100px; height = 100px; ></canvas>
+        <canvas id = 'canvas' width = '100px' height="100px"></canvas>
+        <script>
+            var canvas = document.getElementById('canvas')[0];
+            var canvas = document.getElementById('canvas')[0];
+            var context = canvas.getContext('2d');
+            context.fillstyle = 'ff0000';
+            context.fillRect( 0,0,100,100   )            
+             var context = canvas.getContext('2d');
+             function drag(){
+                DataTransfer.getDate('text',$(this).attr('class'))
+             }
+            function alldragover (){
+               this.preventDefault();
+            }
+            function drop()
+            {
+                this.preventDefault();
+                var data = DataTransfer.getDate('text');
+                this.appendChild(document.getElementById(data));
+                document.body.oli.innerHTML ='<div>' + ele +'</div>' 
+                 canvas.setattrbute('draggable : true;')
+            }
+
+         
+         </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body></html>

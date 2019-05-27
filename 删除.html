@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>删除</title>
+    <style>
+       div{
+           margin:100px 100px;
+           width:200px;
+           height:20px;
+           background-color:wheat;
+           text-align:center;
+         
+       }
+       #drop{
+           width:400px;
+           height:400px;
+          background-color:black;
+           color:white;
+          line-height:400px;
+          font-size:100px;
+       }
+    </style>
+</head>
+<body>
+    <div id="demo" draggable="true">废物一</div>
+    <div id="demo" draggable="true">废物二</div>
+    <div id="demo" draggable="true">废物三</div>
+    <div id="drop">滚</div>
+    <script>
+
+        var drag = document.getElementsByTagName('div');
+        
+        console.log(drag)
+        for (let i = 0; i < drag.length - 1; i++) {
+            drag[i].ondragstart = function (e) {
+              e.dataTransfer.setData('data',e.target.id)
+            }
+        }
+        drop.ondragover = function (e) {
+            e.preventDefault();
+        }
+        drop.ondrop = function (e) {
+            var data = e.dataTransfer.getData('data');
+            console.log(this)
+            document.body.removeChild(document.getElementById(data))
+            
+        }
+
+    </script>
+</body>
+</html>

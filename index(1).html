@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            width: 3000px;
+            height: 3000px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id='inp'></input>
+    <div id='show'></div>
+    <script src='./tool.js'></script>
+    <script>
+        // function throttle (handler, wait) {
+        //     var lastTime = 0;
+        //     return function () {
+        //         var curTime = new Date().getTime();
+        //         if (curTime - lastTime >= wait) {
+        //             handler.apply(this, arguments);
+        //             lastTime = curTime;
+        //         }
+        //     }
+        // }
+        // function debounce (handler, delay) {
+        //     var timer = null;
+        //     return function (e) {
+        //         var _self = this, _arg = arguments;
+        //         clearTimeout(timer);
+        //         timer = setTimeout(function () {
+        //             handler.apply(_self, _arg);
+        //         }, delay);
+        //     }
+        // }
+        // function grabMoney (e) {
+        //     console.log(this, e);
+        //     show.innerText++;
+        // }
+        // btn.onclick = throttle(grabMoney, 600);
+        function getDataByAjax (e) {
+            var keyWords = this.value;
+            var data = 'abc____' + new Date().getTime();
+            console.log(e, keyWords, data);
+        };
+        inp.oninput = tool.debounce(getDataByAjax, 1000);
+
+        // 
+
+        // function debounce (handler, delay) {
+        //     var timer = null;
+        //     return function (e) {
+        //         var _self = this, _arg = arguments;
+        //         clearTimeout(timer);
+        //         timer = setTimeout(function () {
+        //             handler.apply(_self, _arg);
+        //         }, delay);
+        //     }
+        // }
+
+        // function getDataByAjax (e) {
+        //     var keyWords = this.value;
+        //     var data = 'abc____' + new Date().getTime();
+        //     console.log(e, keyWords, data);
+        // };
+
+        // inp.oninput = debounce(getDataByAjax, 1000);
+
+        // 
+
+    </script>
+</body>
+</html>
