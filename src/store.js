@@ -28,7 +28,8 @@ const allstore = {
     }
 } 
 function aa (state){
-    for(let i=0;i<state.caption.length/state.cd;i++){
+    var long = state.caption.length>50?50:state.caption.length
+    for(let i=0;i<long/state.cd;i++){
         state.spanarr.push(i);
         }
 }

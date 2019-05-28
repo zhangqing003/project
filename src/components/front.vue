@@ -3,11 +3,11 @@
         <div class="souso">
             <span>热搜榜</span>
             <div class="fx">
-            <span class="aaa lt" @click="fx(1)">&lt;</span>
+            <span :class='[n==0?"gt":"aaa lt"]' @click="fx(1)">&lt;</span>
             <div v-for="(item,index) in spanarr" class="clickall" >
-                <div class="click"></div></div>               
+                <div :class='[n==index?"click1":"click"]'></div></div>               
             
-            <span class=" aaa gtt"  @click="fx(2)">&gt;</span></div>
+            <span :class='[n+1>alldata.length/$store.state.cd?"gt":"aaa gtt"]'  @click="fx(2)">&gt;</span></div>
 
         </div>
         <ul class='rank'>
@@ -73,6 +73,14 @@ export default {
     opacity: 0.1;
 
     
+}
+.click1{
+      position:relative;
+    display: inline-block;  
+    width: 3px;
+    height: 3px;
+    border-radius:50%;
+    background: yellow;
 }
 .allall{
     position: relative;
