@@ -106,6 +106,7 @@ export default {
 
             },
             change(index){
+                console.log(index)
                 this.flag = true; 
                 this.idx = index;
             },

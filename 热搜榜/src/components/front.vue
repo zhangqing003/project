@@ -163,11 +163,9 @@ li{
 }
 .text{
     position: relative;
-   float: left;
-   left: 0px;
-  
+    float: left;
+    left: 0px; 
     list-style: none;
-    
 }
 .rankb{
     position: relative;
@@ -179,7 +177,6 @@ li{
     position: relative;
     left:20px;
     font-size:18px;
-
 }
 .rankd{
     position: relative;
@@ -197,25 +194,5 @@ li{
 .aaa:hover{
     color:red;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+  
 </style>
